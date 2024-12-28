@@ -3,10 +3,10 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Avatar,
   Box,
   Typography,
 } from "@mui/material";
+import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,10 +29,7 @@ export default function AvatarMenu() {
         onClick={handleClick}
         sx={{ padding: 0, marginRight: "10px" }}
       >
-        <Avatar
-          alt="Avatar"
-          src="https://www.georgetown.edu/wp-content/uploads/2022/02/Jkramerheadshot-scaled-e1645036825432-1050x1050-c-default.jpg"
-        />
+        <HiAdjustmentsHorizontal />
       </IconButton>
       <Menu
         id="avatar-menu"
@@ -43,16 +40,6 @@ export default function AvatarMenu() {
           "aria-labelledby": "avatar-button",
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <Typography variant="body2" pl={4} align="right">
-            پروفــایل
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Typography variant="body2" pl={4} align="right">
-            تیـــکت
-          </Typography>
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <Typography variant="body2" pl={4} align="right">
             خــروج

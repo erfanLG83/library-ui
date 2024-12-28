@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
-import { IoPeopleCircleOutline } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { RiAlarmWarningLine } from "react-icons/ri";
 import { HiOutlineHome } from "react-icons/hi2";
-import { FiShoppingCart } from "react-icons/fi";
 import Sidebar from "../components/layout/sidebar";
 import Header from "../components/layout/header";
+import { BiBook, BiCategoryAlt } from "react-icons/bi";
+import { FaWizardsOfTheCoast } from "react-icons/fa6";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,9 +15,7 @@ interface LayoutProps {
 }
 
 const DashboardLayout: React.FC<LayoutProps> = ({
-  children,
-  title,
-  description,
+  children
 }) => {
   const theme = useTheme();
   const location = useLocation();
@@ -34,32 +30,36 @@ const DashboardLayout: React.FC<LayoutProps> = ({
       link: "/",
       icon: <HiOutlineHome size={23} color={theme.palette.common.white} />,
     },
-    // {
-    //   id: 2,
-    //   title: "پـــروفایل",
-    //   link: "/profile",
-    //   icon: <CgProfile size={23} color={theme.palette.common.white} />,
-    // },
+    {
+      id: 2,
+      title: "دسته بندی ها",
+      link: "/categories",
+      icon: <BiCategoryAlt size={23} color={theme.palette.common.white} />,
+    },
     {
       id: 3,
-      title: "محصـــولات",
-      link: "/products",
-      icon: <FiShoppingCart size={23} color={theme.palette.common.white} />,
+      title: "نویسنده ها",
+      link: "/authors",
+      icon: (
+        <FaWizardsOfTheCoast size={23} color={theme.palette.common.white} />
+      ),
     },
     {
       id: 4,
-      title: "مشتـــریان",
-      link: "/customers",
+      title: "کتاب ها",
+      link: "/books",
       icon: (
-        <IoPeopleCircleOutline size={23} color={theme.palette.common.white} />
+        <BiBook size={23} color={theme.palette.common.white} />
       ),
     },
-    // {
-    //   id: 5,
-    //   title: "تیکــت‌ها",
-    //   link: "/tickets",
-    //   icon: <RiAlarmWarningLine size={23} color={theme.palette.common.white} />,
-    // },
+    {
+      id: 5,
+      title: "امانت ها",
+      link: "/borrowedBooks",
+      icon: (
+        <BiBook size={23} color={theme.palette.common.white} />
+      ),
+    },
   ];
 
   return (

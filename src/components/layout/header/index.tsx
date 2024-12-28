@@ -6,13 +6,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { FaMoon } from "react-icons/fa6";
-import { TbSunHigh } from "react-icons/tb";
 import { CgMenuLeft } from "react-icons/cg";
 import Logo from "../../../assets/images/logo.png";
 import AvatarMenu from "./avatarMenu";
-import { switchTheme } from "../../../features/app/appSlice";
-import { AppDispatch, useAppDispatch } from "../../../features/store";
 import styles from "./header.module.scss";
 
 interface HeaderPropsType {
@@ -29,7 +25,6 @@ const Header: React.FC<HeaderPropsType> = ({
   isExpanded,
 }) => {
   const theme = useTheme();
-  const dispatch: AppDispatch = useAppDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
@@ -60,23 +55,8 @@ const Header: React.FC<HeaderPropsType> = ({
         </Typography>
       </Box>
       <Box>
-        <IconButton
-          size="small"
-          sx={{ background: theme.palette.common.white, borderRadius: "4px" }}
-          onClick={() =>
-            dispatch(
-              switchTheme(theme.palette.mode === "light" ? "dark" : "light")
-            )
-          }
-        >
-          {theme.palette.mode === "light" ? (
-            <FaMoon style={{ color: theme.palette.common.black }} />
-          ) : (
-            <TbSunHigh style={{ color: theme.palette.common.black }} />
-          )}
-        </IconButton>
         <Typography variant="caption" component="h6">
-          | سیما مجتهدی
+          Wellcome Admin
         </Typography>
         <AvatarMenu />
       </Box>
