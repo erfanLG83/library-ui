@@ -12,6 +12,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import { AiOutlineLogout } from "react-icons/ai";
 import Logo from "../../../assets/images/logo.png";
 import styles from "./sidebar.module.scss";
+import authService from "../../../services/auth.service";
 
 interface SidebarPropsType {
   expanded: Boolean;
@@ -28,6 +29,11 @@ const Sidebar: React.FC<SidebarPropsType> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleLogout = () => {
+    authService.logout();
+    window.location.href = '/login';
+  }
 
   return (
     <Box
@@ -81,7 +87,7 @@ const Sidebar: React.FC<SidebarPropsType> = ({
           </ListItem>
         ))}
       </List>
-      <IconButton>
+      <IconButton onClick={handleLogout}>
         <AiOutlineLogout size={23} color={theme.palette.common.white} />
         <Typography
           component="span"

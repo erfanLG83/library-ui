@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { Box, Container, useMediaQuery, useTheme } from "@mui/material";
@@ -22,6 +22,11 @@ const DashboardLayout: React.FC<LayoutProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [expanded, isExpanded] = useState(false);
+
+  useEffect(()=>{
+    if(!localStorage.getItem("accessToken")){
+      window.location.replace('/login');
+  }},[])
 
   const sidebarItems = [
     {

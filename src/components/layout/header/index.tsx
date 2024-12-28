@@ -56,7 +56,7 @@ const Header: React.FC<HeaderPropsType> = ({
       </Box>
       <Box>
         <Typography variant="caption" component="h6">
-          Wellcome Admin
+          خوش آمدی Admin
         </Typography>
         <AvatarMenu />
       </Box>

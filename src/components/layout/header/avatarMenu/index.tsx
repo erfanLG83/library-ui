@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
+import AuthService from "../../../../services/auth.service";
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -17,6 +18,8 @@ export default function AvatarMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    AuthService.logout();
+    window.location.href = '/login';
   };
 
   return (
