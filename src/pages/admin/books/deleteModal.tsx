@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import BooksService from "../../services/books.service";
+import BooksService from "../../../services/books.service";
 
 const DeleteModal = ({ open, book, onClose, onBookDeleted }: any) => {
   const handleDelete = () => {

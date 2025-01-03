@@ -1,42 +1,33 @@
 import { useState } from "react";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
-import AuthorsService from "../../services/authors.service";
+import CategoriesService from "../../../services/categories.service";
 
-const CreateModal = ({ open, onClose, onAuthorCreated }: any) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const CreateCategoryModal = ({ open, onClose, onCategoryCreated }: any) => {
+  const [title, setTitle] = useState("");
 
   const handleCreate = () => {
-    AuthorsService.create(firstName,lastName).then((response) => {
+    CategoriesService.create(title).then((response) => {
       if(response.success === false){
         onClose();
         alert('خطا ! \n'+response.errors[0].message)
         return;
       }
 
-      onAuthorCreated();
+      onCategoryCreated();
       onClose();
-      setFirstName('');
-      setLastName('');
+      setTitle("");
     });
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={{ ...modalStyles }}>
-        <Typography variant="h6">ایجاد نویسنده جدید</Typography>
+        <Typography variant="h6">ایجاد دسته‌بندی جدید</Typography>
         <TextField
-          label="نام"
+          label="عنوان"
           fullWidth
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          sx={{ mt: 2 }}
-        />
-        <TextField
-          label="نام خانوادگی"
-          fullWidth
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           sx={{ mt: 2 }}
         />
         <Button variant="contained" color="primary" onClick={handleCreate} sx={{ mt: 2 }}>
@@ -58,4 +49,4 @@ const modalStyles = {
   p: 4,
 };
 
-export default CreateModal;
+export default CreateCategoryModal;

@@ -1,13 +1,20 @@
-import Home from "../pages/home";
-import Categories from "../pages/categories";
-import LoginPage from "../pages/login";
-import Authors from "../pages/authors";
-import Books from "../pages/books";
+import AdminHome from "../pages/admin/home";
+import Categories from "../pages/admin/categories";
+import AdminLoginPage from "../pages/admin/login";
+import Authors from "../pages/admin/authors";
+import Books from "../pages/admin/books";
+import CustomerLoginPage from "../pages/customer/login";
+import CustomerHome from "../pages/customer/home";
 
 export const mainRoutes = [
-  { pathName: "/", element: <Home /> },
-  { pathName: "/login", element: <LoginPage /> },
-  { pathName: "/categories", element: <Categories /> },
-  { pathName: "/authors", element: <Authors /> },
-  { pathName: "/books", element: <Books /> },
+  { pathName: "/admin/home", element: <AdminHome /> },
+  { pathName: "/admin/login", element: <AdminLoginPage /> },
+  { pathName: "/admin/categories", element: <Categories /> },
+  { pathName: "/admin/authors", element: <Authors /> },
+  { pathName: "/admin/books", element: <Books /> },
+  
+  { pathName: "/customer/home", element: <CustomerHome /> },
+  { pathName: "/customer/login", element: <CustomerLoginPage /> },
+  { pathName: "/customer/books", element: <Books /> },
+  { pathName: "/customer/books/details", element: <Books /> },
 ];

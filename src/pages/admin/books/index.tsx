@@ -12,12 +12,12 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import DashboardLayout from "../../layout";
-import { BookModel } from "../../services/Models/BookModels";
-import BooksService from "../../services/books.service";
+import DashboardLayout from "../../../layout";
+import { BookModel } from "../../../services/Models/BookModels";
+import BooksService from "../../../services/books.service";
 import CreateModal from "./createModal";
 import DeleteModal from "./deleteModal";
-import { BooksListOrderBy } from "../../services/Models/ApiResult";
+import { BooksListOrderBy } from "../../../services/Models/ApiResult";
 import moment from "jalali-moment";
 
 const Books = () => {

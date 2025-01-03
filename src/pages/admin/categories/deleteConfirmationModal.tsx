@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import CategoriesService from "../../services/categories.service";
+import CategoriesService from "../../../services/categories.service";
 
 const DeleteConfirmationModal = ({ open, category, onClose, onCategoryDeleted }: any) => {
   const handleDelete = () => {

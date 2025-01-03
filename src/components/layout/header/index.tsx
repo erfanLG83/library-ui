@@ -10,6 +10,7 @@ import { CgMenuLeft } from "react-icons/cg";
 import Logo from "../../../assets/images/logo.png";
 import AvatarMenu from "./avatarMenu";
 import styles from "./header.module.scss";
+import AuthService from "../../../services/auth.service";
 
 interface HeaderPropsType {
   sidebarItems: any;
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderPropsType> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const userInfo = AuthService.getUserInfoCache();
 
   return (
     <Box className={styles.header_wrapper}>
@@ -49,14 +51,13 @@ const Header: React.FC<HeaderPropsType> = ({
         <Typography variant="caption" component="h6">
           |{" "}
           {
-            sidebarItems.find((item: any) => item.link === location.pathname)
-              .title
+            sidebarItems.find((item: any) => item.link === location.pathname)?.title
           }
         </Typography>
       </Box>
       <Box>
         <Typography variant="caption" component="h6">
-          خوش آمدی Admin
+          خوش آمدی {userInfo.firstName}
         </Typography>
         <AvatarMenu />
       </Box>

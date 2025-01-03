@@ -13,9 +13,9 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import DashboardLayout from "../../layout";
-import { AuthorModel } from "../../services/Models/AuthorModels";
-import AuthorsService from "../../services/authors.service";
+import DashboardLayout from "../../../layout";
+import { AuthorModel } from "../../../services/Models/AuthorModels";
+import AuthorsService from "../../../services/authors.service";
 import CreateModal from "./createModal";
 import DeleteModal from "./deleteModal";
 import UpdateModal from "./updateModal";

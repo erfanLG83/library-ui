@@ -13,9 +13,9 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import DashboardLayout from "../../layout";
-import { CategoryModel } from "../../services/Models/CategoryModels";
-import CategoriesService from "../../services/categories.service";
+import DashboardLayout from "../../../layout";
+import { CategoryModel } from "../../../services/Models/CategoryModels";
+import CategoriesService from "../../../services/categories.service";
 import CreateCategoryModal from "./createCategoryModal";
 import DeleteConfirmationModal from "./deleteConfirmationModal";
 import UpdateCategoryModal from "./updateCategoryModal";

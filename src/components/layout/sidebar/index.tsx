@@ -13,6 +13,7 @@ import { AiOutlineLogout } from "react-icons/ai";
 import Logo from "../../../assets/images/logo.png";
 import styles from "./sidebar.module.scss";
 import authService from "../../../services/auth.service";
+import { UserRole } from "../../../services/Models/UserModels";
 
 interface SidebarPropsType {
   expanded: Boolean;
@@ -32,7 +33,7 @@ const Sidebar: React.FC<SidebarPropsType> = ({
 
   const handleLogout = () => {
     authService.logout();
-    window.location.href = '/login';
+    window.location.href = authService.getUserInfoCache().role === UserRole.customer ? '/customer/login' : '/admin/login';
   }
 
   return (

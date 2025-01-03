@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
-import AuthorsService from "../../services/authors.service";
+import AuthorsService from "../../../services/authors.service";
 
 const UpdateModal = ({ open, author, onClose, onAuthorUpdated }: any) => {
   const [firstName, setFirstName] = useState("");

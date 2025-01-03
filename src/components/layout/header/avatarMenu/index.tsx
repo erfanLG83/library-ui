@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import AuthService from "../../../../services/auth.service";
+import { UserRole } from "../../../../services/Models/UserModels";
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -21,7 +22,7 @@ export default function AvatarMenu() {
   };
   const handleLogout = () => {
     AuthService.logout();
-    window.location.href = '/login';
+    window.location.href = AuthService.getUserInfoCache().role === UserRole.customer ? '/customer/login' : '/admin/login';
     setAnchorEl(null);
   };
 

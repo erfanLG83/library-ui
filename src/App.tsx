@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 import { lightTheme } from "./utils/theme/light";
@@ -18,6 +18,10 @@ function App() {
           {(mainRoutes as Route[]).map((route, index) => (
             <Route path={route.pathName} element={route.element} key={index} />
           ))}
+          <Route
+              path="*"
+              element={<Navigate to="/customer/home" replace />}
+          />
         </Routes>
         <Toaster
           reverseOrder={false}

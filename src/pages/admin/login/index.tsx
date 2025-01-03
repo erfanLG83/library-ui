@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
-import AuthService from '../../services/auth.service';
+import AuthService from '../../../services/auth.service';
 
-const LoginPage: React.FC = () => {
+const AdminLoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleLogin = async () => {
-        const response = await AuthService.login(username, password);
+        const response = await AuthService.adminLogin(username, password);
         if (!response.success) {
             setError(response.errors[0].message);
             return;
         }
         
-        window.location.href = '/';
+        await AuthService.getUserInfo();
+        window.location.href = '/admin/home';
     };
 
     return (
@@ -116,4 +117,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default AdminLoginPage;
