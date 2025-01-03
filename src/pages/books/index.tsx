@@ -9,31 +9,28 @@ import {
   TableRow,
   Typography,
   TablePagination,
-  useTheme,
   CircularProgress,
   Box,
 } from "@mui/material";
 import DashboardLayout from "../../layout";
-import { CategoryModel } from "../../services/Models/CategoryModels";
-import CategoriesService from "../../services/categories.service";
-import CreateCategoryModal from "./createCategoryModal";
-import DeleteConfirmationModal from "./deleteConfirmationModal";
-import UpdateCategoryModal from "./updateCategoryModal";
+import { BookModel } from "../../services/Models/BookModels";
+import BooksService from "../../services/books.service";
+import CreateModal from "./createModal";
+import DeleteModal from "./deleteModal";
+import { BooksListOrderBy } from "../../services/Models/ApiResult";
+import moment from "jalali-moment";
 
-const Categories = () => {
-  const theme = useTheme();
-
-  const headers = ["#", "عنوان", "عملیات ها"];
+const Books = () => {
+  const headers = ["#", "عنوان", "توضیحات", "تاریخ انتشار", "زبان", "موجودی", "تاریخ ایجاد" , "عملیات ها"];
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [items, setItems] = useState<CategoryModel[] | null>(null);
+  const [items, setItems] = useState<BookModel[] | null>(null);
   const [totalCount, setTotalCount] = useState<number | null>(null);
 
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<CategoryModel | null>(null);
+  const [selectedBook, setSelectedBook] = useState<BookModel | null>(null);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -44,9 +41,9 @@ const Categories = () => {
     setPage(0);
   };
 
-  const fetchCategories = useCallback(() => {
-    CategoriesService.getAll(page+1, rowsPerPage).then((response) => {
-      if (response.success === false) {
+  const fetchBooks = useCallback(() => {
+    BooksService.getAll(page + 1, rowsPerPage,true,BooksListOrderBy.createdDate).then(response => {
+      if (!response.success) {
         alert("خطا ! \n" + response.errors[0].message);
         return;
       }
@@ -55,37 +52,27 @@ const Categories = () => {
       setTotalCount(response.data!.totalCount);
     });
   },[page, rowsPerPage]);
-  
+
   useEffect(() => {
-    fetchCategories();
-  }, [page, rowsPerPage,fetchCategories]);
+    fetchBooks();
+  }, [page, rowsPerPage,fetchBooks]);
 
   return (
     <DashboardLayout>
       <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setCreateModalOpen(true)}
-        >
-          ایجاد دسته‌بندی
+        <Button variant="contained" color="primary" onClick={() => setCreateModalOpen(true)}>
+          افزودن کتاب
         </Button>
       </Box>
 
-      <TableContainer
-        className="default_card"
-        sx={{ background: theme.palette.background.paper }}
-      >
-        <Table aria-label="categories">
+      <TableContainer className="default_card">
+        <Table>
           <TableHead>
             <TableRow>
-              {headers.map((headerItem: string) => (
-                <TableCell align="center" key={headerItem}>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: 700, whiteSpace: "nowrap" }}
-                  >
-                    {headerItem}
+              {headers.map((header) => (
+                <TableCell align="center" key={header}>
+                  <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                    {header}
                   </Typography>
                 </TableCell>
               ))}
@@ -100,23 +87,25 @@ const Categories = () => {
               </TableRow>
             )}
             {items &&
-              items.map((category, i) => (
-                <TableRow
-                  key={category.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row" align="center">
-                    {page * rowsPerPage + i + 1}
+              items.map((book, i) => (
+                <TableRow key={book.id}>
+                  <TableCell align="center">{page * rowsPerPage + i + 1}</TableCell>
+                  <TableCell align="center">{book.title}</TableCell>
+                  <TableCell align="center">{book.description}</TableCell>
+                  <TableCell align="center">{book.publicationDate}</TableCell>
+                  <TableCell align="center">
+                    {["فارسی", "انگلیسی", "دیگر"][book.language]}
                   </TableCell>
-                  <TableCell align="center">{category.title}</TableCell>
+                  <TableCell align="center">{book.quantity}</TableCell>
+                  <TableCell align="center">{moment(book.createdAt).locale('fa').format('YYYY/MM/DD')}</TableCell>
                   <TableCell align="center">
                     <Button
                       variant="outlined"
                       color="primary"
                       size="small"
                       onClick={() => {
-                        setSelectedCategory(category);
-                        setUpdateModalOpen(true);
+                        setSelectedBook(book);
+                        setCreateModalOpen(true);
                       }}
                     >
                       ویرایش
@@ -127,7 +116,7 @@ const Categories = () => {
                       size="small"
                       sx={{ ml: 1 }}
                       onClick={() => {
-                        setSelectedCategory(category);
+                        setSelectedBook(book);
                         setDeleteModalOpen(true);
                       }}
                     >
@@ -154,25 +143,27 @@ const Categories = () => {
         />
       </TableContainer>
 
-      <CreateCategoryModal
+      <CreateModal
+        bookData={selectedBook}
         open={createModalOpen}
-        onClose={() => setCreateModalOpen(false)}
-        onCategoryCreated={fetchCategories}
+        onClose={() => {
+          setCreateModalOpen(false);
+          setSelectedBook(null);
+        }}
+        onBookSaved={fetchBooks}
       />
-      <UpdateCategoryModal
-        open={updateModalOpen}
-        category={selectedCategory}
-        onClose={() => setUpdateModalOpen(false)}
-        onCategoryUpdated={fetchCategories}
-      />
-      <DeleteConfirmationModal
+      
+      <DeleteModal
         open={deleteModalOpen}
-        category={selectedCategory}
-        onClose={() => setDeleteModalOpen(false)}
-        onCategoryDeleted={fetchCategories}
+        book={selectedBook}
+        onClose={() => {
+          setDeleteModalOpen(false);
+          setSelectedBook(null);
+        }}
+        onBookDeleted={fetchBooks}
       />
     </DashboardLayout>
   );
 };
 
-export default Categories;
+export default Books;

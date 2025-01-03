@@ -6,17 +6,12 @@ export interface BookModel {
     title: string;
     author: AuthorModel;
     category: CategoryModel;
-    publishedDate: string;
+    publicationDate: string;
     createdAt: string;
     description: string;
-    publicationDate: string;
     language: BookLanguage;
     quantity: number;
     interpreters: string;
-}
-
-export interface GetBooksResponse {
-    items : BookModel[];
 }
 
 export interface CreateBookRequest {
@@ -24,12 +19,11 @@ export interface CreateBookRequest {
     authorId: string;
     categoryId: string;
     publisherId: string;
-    publishedDate: string;
     description: string;
     publicationDate: string;
     language: BookLanguage;
     quantity: number;
-    interpreters: string;
+    interpreters: string | null;
 }
 
 export interface UpdateBookRequest {
@@ -38,12 +32,11 @@ export interface UpdateBookRequest {
     authorId: string;
     categoryId: string;
     publisherId: string;
-    publishedDate: string;
     description: string;
     publicationDate: string;
     language: BookLanguage;
     quantity: number;
-    interpreters: string;
+    interpreters: string | null;
 }
 
 export enum BookLanguage {

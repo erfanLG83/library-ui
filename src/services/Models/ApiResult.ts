@@ -14,6 +14,11 @@ export type BadRequestResponse = {
     errors: ApiError[];
 }
 
+export enum BooksListOrderBy { 
+    title,
+    createdDate
+}
+
 export type PaginationModel<T> = {
     items: T[];
     pageIndex: number;

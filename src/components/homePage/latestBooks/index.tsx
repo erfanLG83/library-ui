@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import moment from 'jalali-moment'
 import { BookModel } from "../../../services/Models/BookModels";
 import BooksService from "../../../services/books.service";
+import { BooksListOrderBy } from "../../../services/Models/ApiResult";
 
 const LatestBooks = () => {
   const theme = useTheme();
@@ -19,7 +20,7 @@ const LatestBooks = () => {
   const [items,setItems] = useState<BookModel[]>([]);
 
   useEffect(()=>{
-    BooksService.getLatestBooks().then(response => {
+    BooksService.getAll(1,15,true,BooksListOrderBy.createdDate).then(response => {
       if(response.success === false){
         alert('خطا ! \n'+ response.errors[0].message);
         return;

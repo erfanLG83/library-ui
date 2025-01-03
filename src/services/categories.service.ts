@@ -4,7 +4,7 @@ import BaseApiService from './base.service';
 import { CategoryModel } from './Models/CategoryModels';
 
 class CategoriesService {
-    public static async getCategories(pageIndex: number,pageSize: number) : Promise<ApiResult<PaginationModel<CategoryModel>>> {
+    public static async getAll(pageIndex: number,pageSize: number) : Promise<ApiResult<PaginationModel<CategoryModel>>> {
         try {
             const response = await axios.get<PaginationModel<CategoryModel>>(
                 `${BaseApiService.API_URL}/api/v1/admin/categories?pageIndex=${pageIndex}&pageSize=${pageSize}`,{
