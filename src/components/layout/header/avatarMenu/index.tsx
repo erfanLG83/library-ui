@@ -18,8 +18,11 @@ export default function AvatarMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleLogout = () => {
     AuthService.logout();
     window.location.href = '/login';
+    setAnchorEl(null);
   };
 
   return (
@@ -43,7 +46,7 @@ export default function AvatarMenu() {
           "aria-labelledby": "avatar-button",
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <Typography variant="body2" pl={4} align="right">
             خــروج
           </Typography>
