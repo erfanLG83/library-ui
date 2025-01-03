@@ -2,7 +2,7 @@ export type ApiResult<T = void> =
 {
     success: boolean;
     errors: ApiError[];
-    data?: T;
+    data?: T | null;
 }
 
 export type ApiError = {
@@ -12,4 +12,11 @@ export type ApiError = {
 
 export type BadRequestResponse = {
     errors: ApiError[];
+}
+
+export type PaginationModel<T> = {
+    items: T[];
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
 }
