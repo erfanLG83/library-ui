@@ -57,3 +57,12 @@ a {
   width: 10px !important;
   height: 10px !important;
 }
+
+.MuiInputLabel-root{
+  left: inherit !important;
+  right: 1.75rem !important;
+  transform-origin: right !important;
+}
+.MuiOutlinedInput-root fieldset {
+  text-align: right !important;
+}
