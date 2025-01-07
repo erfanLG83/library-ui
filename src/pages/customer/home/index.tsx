@@ -19,7 +19,7 @@ import AuthorsService from "../../../services/authors.service";
 import BooksService from "../../../services/books.service";
 import PublishersService from "../../../services/publishers.service";
 import CategoriesService from "../../../services/categories.service";
-import defaultBookImage from "../../../assets/images/logo.png"; // Import your default book image
+import defaultBookImage from "../../../assets/images/logo.png";
 import { AuthorModel } from "../../../services/Models/AuthorModels";
 import { PublisherModel } from "../../../services/Models/PublisherModels";
 import { CategoryModel } from "../../../services/Models/CategoryModels";
@@ -216,7 +216,7 @@ const CustomerHome = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" href={`/customer/books/${book.id}`}>
                       مشاهده جزئیات
                     </Button>
                   </CardActions>

@@ -5,6 +5,7 @@ import Authors from "../pages/admin/authors";
 import Books from "../pages/admin/books";
 import CustomerLoginPage from "../pages/customer/login";
 import CustomerHome from "../pages/customer/home";
+import BookDetails from "../pages/customer/bookDetails";
 
 export const mainRoutes = [
   { pathName: "/admin/home", element: <AdminHome /> },
@@ -17,4 +18,5 @@ export const mainRoutes = [
   { pathName: "/customer/login", element: <CustomerLoginPage /> },
   { pathName: "/customer/books", element: <Books /> },
   { pathName: "/customer/books/details", element: <Books /> },
+  { pathName: "/customer/books/:id", element: <BookDetails /> },
 ];

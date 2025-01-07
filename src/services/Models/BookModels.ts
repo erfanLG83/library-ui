@@ -1,11 +1,13 @@
 import { AuthorModel } from "./AuthorModels";
 import { CategoryModel } from "./CategoryModels";
+import { PublisherModel } from "./PublisherModels";
 
 export interface BookModel {
     id: string;
     title: string;
     author: AuthorModel;
     category: CategoryModel;
+    publisher: PublisherModel;
     publicationDate: string;
     createdAt: string;
     description: string;
@@ -13,6 +15,10 @@ export interface BookModel {
     interpreters: string;
     image: string | null;
     bookInBranches: BookInBranchModel[];
+}
+
+export interface BookDetailsModel extends BookModel{
+    userBorrowedBook: boolean;
 }
 
 export interface SearchBookModel {
