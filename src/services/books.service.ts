@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ApiResult, BadRequestResponse, BooksListOrderBy, PaginationModel } from './Models/ApiResult';
 import BaseApiService from './base.service';
-import { BookDetailsModel, BookModel, BorrowedBookModel, CreateBookRequest, SearchBookModel, UpdateBookRequest } from './Models/BookModels';
+import { AdminBorrowedBookModel, BookDetailsModel, BookModel, BorrowedBookModel, CreateBookRequest, SearchBookModel, UpdateBookRequest } from './Models/BookModels';
 
 class BooksService {
     public static async borrow(id:string,branch:string) : Promise<ApiResult> {
@@ -30,11 +30,87 @@ class BooksService {
             };
         }
     }
+    
+    public static async setBookReturned(id:string) : Promise<ApiResult> {
+        try {
+            const response = await axios.patch(
+                `${BaseApiService.API_URL}/api/v1/admin/books/borrowedBooks/${id}/setReturned`,{},{
+                headers : {
+                    Authorization : `bearer ${BaseApiService.getAccessToken()}`
+                }
+            });
+
+            return { 
+                success : true, 
+                data : response.data,
+                errors : []
+            };
+        } catch (error) {
+            console.log(error);
+            const axiosError = error as AxiosError<BadRequestResponse>;
+            return {
+                success : false,
+                data : null,
+                errors : axiosError.response?.data?.errors ?? []
+            };
+        }
+    }
+    
+    public static async setBookReceived(id:string) : Promise<ApiResult> {
+        try {
+            const response = await axios.patch(
+                `${BaseApiService.API_URL}/api/v1/admin/books/borrowedBooks/${id}/setReceived`,{},{
+                headers : {
+                    Authorization : `bearer ${BaseApiService.getAccessToken()}`
+                }
+            });
+
+            return { 
+                success : true, 
+                data : response.data,
+                errors : []
+            };
+        } catch (error) {
+            console.log(error);
+            const axiosError = error as AxiosError<BadRequestResponse>;
+            return {
+                success : false,
+                data : null,
+                errors : axiosError.response?.data?.errors ?? []
+            };
+        }
+    }
+    
 
     public static async getBorrowedBooks(pageIndex : number,pageSize: number) : Promise<ApiResult<PaginationModel<BorrowedBookModel>>> {
         try {
             const response = await axios.get<PaginationModel<BorrowedBookModel>>(
                 `${BaseApiService.API_URL}/api/v1/books/borrowedBooks?pageIndex=${pageIndex}&pageSize=${pageSize}`,{
+                headers : {
+                    Authorization : `bearer ${BaseApiService.getAccessToken()}`
+                }
+            });
+
+            return { 
+                success : true, 
+                data : response.data,
+                errors : []
+            };
+        } catch (error) {
+            console.log(error);
+            const axiosError = error as AxiosError<BadRequestResponse>;
+            return {
+                success : false,
+                data : null,
+                errors : axiosError.response?.data?.errors ?? []
+            };
+        }
+    }
+
+    public static async adminGetBorrowedBooks(pageIndex : number,pageSize: number) : Promise<ApiResult<PaginationModel<AdminBorrowedBookModel>>> {
+        try {
+            const response = await axios.get<PaginationModel<AdminBorrowedBookModel>>(
+                `${BaseApiService.API_URL}/api/v1/admin/books/borrowedBooks?pageIndex=${pageIndex}&pageSize=${pageSize}`,{
                 headers : {
                     Authorization : `bearer ${BaseApiService.getAccessToken()}`
                 }

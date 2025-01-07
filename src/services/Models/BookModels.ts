@@ -41,6 +41,31 @@ export interface BorrowedBookModel {
     deadlineReached: boolean
 }
 
+export interface AdminBorrowedBookModel {
+    id: string
+    bookId: string
+    bookTitle: string
+    bookImage: string | null
+    startDate: string
+    branch: LibraryBranch
+    endDate: string | null
+    deadlineReached: boolean
+    user: UserModel
+    status: BorrowedBookStatus
+}
+
+export enum BorrowedBookStatus{
+    NotReceived,
+    Received,
+    Returned
+}
+
+export interface UserModel{
+    id: string;
+    firstName: string;
+    lastName:string;
+}
+
 export interface BookInBranchModel {
     branch: LibraryBranch;
     quantity: number;

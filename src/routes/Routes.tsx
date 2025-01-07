@@ -7,6 +7,7 @@ import CustomerLoginPage from "../pages/customer/login";
 import CustomerHome from "../pages/customer/home";
 import BookDetails from "../pages/customer/bookDetails";
 import BorrowedBooksHistory from "../pages/customer/borrowedBooks";
+import AdminBorrowedBooks from "../pages/admin/borrowedBooks";
 
 export const mainRoutes = [
   { pathName: "/admin/home", element: <AdminHome /> },
@@ -14,6 +15,7 @@ export const mainRoutes = [
   { pathName: "/admin/categories", element: <Categories /> },
   { pathName: "/admin/authors", element: <Authors /> },
   { pathName: "/admin/books", element: <Books /> },
+  { pathName: "/admin/borrowedBooks", element: <AdminBorrowedBooks /> },
   
   { pathName: "/customer/home", element: <CustomerHome /> },
   { pathName: "/customer/login", element: <CustomerLoginPage /> },
