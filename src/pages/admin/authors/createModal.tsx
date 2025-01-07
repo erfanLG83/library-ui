@@ -7,7 +7,7 @@ const CreateModal = ({ open, onClose, onAuthorCreated }: any) => {
   const [lastName, setLastName] = useState("");
 
   const handleCreate = () => {
-    AuthorsService.create(firstName,lastName).then((response) => {
+    AuthorsService.adminCreate(firstName,lastName).then((response) => {
       if(response.success === false){
         onClose();
         alert('خطا ! \n'+response.errors[0].message)

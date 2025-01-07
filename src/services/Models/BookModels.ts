@@ -10,8 +10,28 @@ export interface BookModel {
     createdAt: string;
     description: string;
     language: BookLanguage;
-    quantity: number;
     interpreters: string;
+    image: string | null;
+    bookInBranches: BookInBranchModel[];
+}
+
+export interface SearchBookModel {
+    id: string;
+    title: string;
+    author: AuthorModel;
+    category: CategoryModel;
+    image: string | null;
+    bookInBranches: BookInBranchModel[];
+}
+
+export interface BookInBranchModel {
+    branch: LibraryBranch;
+    quantity: number;
+}
+
+export enum LibraryBranch{
+    Branch1,
+    Branch2
 }
 
 export interface CreateBookRequest {
@@ -22,7 +42,7 @@ export interface CreateBookRequest {
     description: string;
     publicationDate: string;
     language: BookLanguage;
-    quantity: number;
+    bookInBranches: BookInBranchModel[];
     interpreters: string | null;
 }
 
@@ -35,7 +55,7 @@ export interface UpdateBookRequest {
     description: string;
     publicationDate: string;
     language: BookLanguage;
-    quantity: number;
+    bookInBranches: BookInBranchModel[];
     interpreters: string | null;
 }
 

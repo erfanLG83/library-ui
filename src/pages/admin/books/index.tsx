@@ -96,7 +96,9 @@ const Books = () => {
                   <TableCell align="center">
                     {["فارسی", "انگلیسی", "دیگر"][book.language]}
                   </TableCell>
-                  <TableCell align="center">{book.quantity}</TableCell>
+                  <TableCell align="center">
+                    {`شعبه اول:${book.bookInBranches[0].quantity}\n شعبه دوم:${book.bookInBranches[1].quantity}`}
+                  </TableCell>
                   <TableCell align="center">{moment(book.createdAt).locale('fa').format('YYYY/MM/DD')}</TableCell>
                   <TableCell align="center">
                     <Button

@@ -6,7 +6,7 @@ const CreateCategoryModal = ({ open, onClose, onCategoryCreated }: any) => {
   const [title, setTitle] = useState("");
 
   const handleCreate = () => {
-    CategoriesService.create(title).then((response) => {
+    CategoriesService.adminCreate(title).then((response) => {
       if(response.success === false){
         onClose();
         alert('خطا ! \n'+response.errors[0].message)

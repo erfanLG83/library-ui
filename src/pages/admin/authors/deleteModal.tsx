@@ -3,7 +3,7 @@ import AuthorsService from "../../../services/authors.service";
 
 const DeleteModal = ({ open, author, onClose, onAuthorDeleted }: any) => {
   const handleDelete = () => {
-    AuthorsService.delete(author.id).then((response) => {
+    AuthorsService.adminDelete(author.id).then((response) => {
       onClose();
       if(response.success === false){
         alert('خطا ! \n'+response.errors[0].message);

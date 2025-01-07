@@ -45,7 +45,7 @@ const Categories = () => {
   };
 
   const fetchCategories = useCallback(() => {
-    CategoriesService.getAll(page+1, rowsPerPage).then((response) => {
+    CategoriesService.adminGetAll(page+1, rowsPerPage).then((response) => {
       if (response.success === false) {
         alert("خطا ! \n" + response.errors[0].message);
         return;

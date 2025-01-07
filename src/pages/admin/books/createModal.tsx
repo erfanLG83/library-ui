@@ -18,7 +18,7 @@ import CategoriesService from "../../../services/categories.service";
 import { AuthorModel } from "../../../services/Models/AuthorModels";
 import { PublisherModel } from "../../../services/Models/PublisherModels";
 import { CategoryModel } from "../../../services/Models/CategoryModels";
-import { BookLanguage, CreateBookRequest, UpdateBookRequest } from "../../../services/Models/BookModels";
+import { BookLanguage, CreateBookRequest, LibraryBranch, UpdateBookRequest } from "../../../services/Models/BookModels";
 
 const languages = [
   { value: 0, label: "فارسی" },
@@ -33,7 +33,8 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
     publicationDate: "",
     interpreters: "",
     language: 0,
-    quantity: 0,
+    branch1Quantity: 0,
+    branch2Quantity: 0,
     authorId: "",
     publisherId: "",
     categoryId: "",
@@ -44,7 +45,8 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
     description: "",
     publicationDate: "",
     interpreters: "",
-    quantity: "",
+    branch1Quantity: "",
+    branch2Quantity: "",
     authorId: "",
     publisherId: "",
     categoryId: "",
@@ -55,13 +57,13 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
   const [categories, setCategories] = useState<CategoryModel[]>([]);
 
   useEffect(() => {
-    AuthorsService.getAll(1, 10000).then((response) => {
+    AuthorsService.adminGetAll(1, 10000).then((response) => {
       setAuthors(response.data?.items ?? []);
     });
-    PublishersService.getAll(1, 10000).then((response) => {
+    PublishersService.adminGetAll(1, 10000).then((response) => {
       setPublishers(response.data?.items ?? []);
     });
-    CategoriesService.getAll(1, 10000).then((response) => {
+    CategoriesService.adminGetAll(1, 10000).then((response) => {
       setCategories(response.data?.items ?? []);
     });
   }, []);
@@ -71,6 +73,8 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
       authorId : bookData?.author.id,
       categoryId : bookData?.category.id,
       publisherId : bookData?.publisher.id,
+      branch1Quantity : bookData?.bookInBranches[0].quantity,
+      branch2Quantity : bookData?.bookInBranches[1].quantity,
       ...bookData
     });
   }, [bookData]);
@@ -93,7 +97,8 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
       description: "",
       publicationDate: "",
       interpreters: "",
-      quantity: "",
+      branch1Quantity: "",
+      branch2Quantity: "",
       authorId: "",
       publisherId: "",
       categoryId: "",
@@ -115,8 +120,12 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
       newErrors.interpreters = "مترجمین الزامی است برای زبانی غیر از فارسی.";
       isValid = false;
     }
-    if (form.quantity < 0) {
-      newErrors.quantity = "تعداد موجود نمی‌تواند کمتر از صفر باشد.";
+    if (form.branch1Quantity < 0) {
+      newErrors.branch1Quantity = "تعداد موجود نمی‌تواند کمتر از صفر باشد.";
+      isValid = false;
+    }
+    if (form.branch2Quantity < 0) {
+      newErrors.branch2Quantity = "تعداد موجود نمی‌تواند کمتر از صفر باشد.";
       isValid = false;
     }
     if (!form.authorId) {
@@ -144,13 +153,19 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
         title: form.title,
         description: form.description,
         language: form.language,
-        quantity: form.quantity,
         interpreters: form.interpreters || null,
         publicationDate: form.publicationDate,
         authorId: form.authorId,
         publisherId: form.publisherId,
         categoryId: form.categoryId,
-        id : bookData.id
+        id : bookData.id,
+        bookInBranches : [{
+          branch : LibraryBranch.Branch1,
+          quantity : form.branch1Quantity
+        },{
+          branch : LibraryBranch.Branch2,
+          quantity : form.branch2Quantity
+        }]
       };
 
       BooksService.update(updateBook).then(response => {
@@ -170,12 +185,18 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
       title: form.title,
       description: form.description,
       language: form.language,
-      quantity: form.quantity,
       interpreters: form.interpreters || null,
       publicationDate: form.publicationDate,
       authorId: form.authorId,
       publisherId: form.publisherId,
       categoryId: form.categoryId,
+      bookInBranches : [{
+        branch : LibraryBranch.Branch1,
+        quantity : form.branch1Quantity
+      },{
+        branch : LibraryBranch.Branch2,
+        quantity : form.branch2Quantity
+      }]
     };
 
     BooksService.create(newBook).then((response) => {
@@ -245,13 +266,23 @@ const BookModal = ({ open, onClose, onBookSaved, bookData = null } : any) => {
           disabled={form.language === BookLanguage.Persian}
         />
         <TextField
-          label="تعداد موجود"
+          label="تعداد موجود شعبه 1"
           type="number"
           fullWidth
-          value={form.quantity}
-          onChange={(e) => handleInputChange("quantity", Number(e.target.value))}
-          error={!!errors.quantity}
-          helperText={errors.quantity}
+          value={form.branch1Quantity}
+          onChange={(e) => handleInputChange("branch1Quantity", Number(e.target.value))}
+          error={!!errors.branch1Quantity}
+          helperText={errors.branch1Quantity}
+          sx={{ mt: 2 }}
+        />
+        <TextField
+          label="تعداد موجود شعبه 2"
+          type="number"
+          fullWidth
+          value={form.branch2Quantity}
+          onChange={(e) => handleInputChange("branch2Quantity", Number(e.target.value))}
+          error={!!errors.branch2Quantity}
+          helperText={errors.branch2Quantity}
           sx={{ mt: 2 }}
         />
         <FormControl fullWidth sx={{ mt: 2 }} error={!!errors.authorId}>

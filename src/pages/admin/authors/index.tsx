@@ -45,7 +45,7 @@ const Authors = () => {
   };
 
   const fetchAuthors = useCallback(() => {
-    AuthorsService.getAll(page+1, rowsPerPage).then((response) => {
+    AuthorsService.adminGetAll(page+1, rowsPerPage).then((response) => {
       if (response.success === false) {
         alert("خطا ! \n" + response.errors[0].message);
         return;

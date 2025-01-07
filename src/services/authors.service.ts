@@ -4,7 +4,7 @@ import BaseApiService from './base.service';
 import { AuthorModel } from './Models/AuthorModels';
 
 class AuthorsService {
-    public static async getAll(pageIndex: number,pageSize: number) : Promise<ApiResult<PaginationModel<AuthorModel>>> {
+    public static async adminGetAll(pageIndex: number,pageSize: number) : Promise<ApiResult<PaginationModel<AuthorModel>>> {
         try {
             const response = await axios.get<PaginationModel<AuthorModel>>(
                 `${BaseApiService.API_URL}/api/v1/admin/authors?pageIndex=${pageIndex}&pageSize=${pageSize}`,{
@@ -29,7 +29,32 @@ class AuthorsService {
         }
     }
     
-    public static async create(firstName : string,lastName : string) : Promise<ApiResult> {
+    public static async getAll(pageIndex: number,pageSize: number) : Promise<ApiResult<PaginationModel<AuthorModel>>> {
+        try {
+            const response = await axios.get<PaginationModel<AuthorModel>>(
+                `${BaseApiService.API_URL}/api/v1/authors?pageIndex=${pageIndex}&pageSize=${pageSize}`,{
+                headers : {
+                    Authorization : `bearer ${BaseApiService.getAccessToken()}`
+                }
+            });
+
+            return { 
+                success : true, 
+                data : response.data,
+                errors : []
+            };
+        } catch (error) {
+            console.log(error);
+            const axiosError = error as AxiosError<BadRequestResponse>;
+            return {
+                success : false,
+                data : null,
+                errors : axiosError.response?.data?.errors ?? []
+            };
+        }
+    }
+    
+    public static async adminCreate(firstName : string,lastName : string) : Promise<ApiResult> {
         try {
             await axios.post(
                 `${BaseApiService.API_URL}/api/v1/admin/authors`,{
@@ -56,7 +81,7 @@ class AuthorsService {
         }
     }
     
-    public static async update(id : string, firstName : string,lastName : string) : Promise<ApiResult> {
+    public static async adminUpdate(id : string, firstName : string,lastName : string) : Promise<ApiResult> {
         try {
             await axios.put(
                 `${BaseApiService.API_URL}/api/v1/admin/authors`,{
@@ -84,7 +109,7 @@ class AuthorsService {
         }
     }
     
-    public static async delete(id : string) : Promise<ApiResult> {
+    public static async adminDelete(id : string) : Promise<ApiResult> {
         try {
             await axios.delete(
                 `${BaseApiService.API_URL}/api/v1/admin/authors`,{

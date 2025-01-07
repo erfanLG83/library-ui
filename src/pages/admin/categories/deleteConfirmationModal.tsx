@@ -3,7 +3,7 @@ import CategoriesService from "../../../services/categories.service";
 
 const DeleteConfirmationModal = ({ open, category, onClose, onCategoryDeleted }: any) => {
   const handleDelete = () => {
-    CategoriesService.delete(category.id).then((response) => {
+    CategoriesService.adminDelete(category.id).then((response) => {
       onClose();
       if(response.success === false){
         alert('خطا ! \n'+response.errors[0].message);

@@ -14,7 +14,7 @@ const UpdateModal = ({ open, author, onClose, onAuthorUpdated }: any) => {
   }, [author]);
 
   const handleUpdate = () => {
-    AuthorsService.update(author.id,firstName,lastName).then((response) => {
+    AuthorsService.adminUpdate(author.id,firstName,lastName).then((response) => {
         onClose();
         if(response.success === false){
           alert('خطا ! \n'+response.errors[0].message);

@@ -10,7 +10,7 @@ const UpdateCategoryModal = ({ open, category, onClose, onCategoryUpdated }: any
   }, [category]);
 
   const handleUpdate = () => {
-    CategoriesService.update(category.id,title).then((response) => {
+    CategoriesService.adminUpdate(category.id,title).then((response) => {
         onClose();
         if(response.success === false){
           alert('خطا ! \n'+response.errors[0].message);
