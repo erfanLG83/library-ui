@@ -15,6 +15,7 @@ import DashboardLayout from "../../../layout";
 import BooksService from "../../../services/books.service";
 import defaultBookImage from "../../../assets/images/logo.png";
 import { BookDetailsModel, BookLanguage, LibraryBranch } from "../../../services/Models/BookModels";
+import BaseApiService from "../../../services/base.service";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -148,7 +149,7 @@ const BookDetails = () => {
             <CardMedia
               component="img"
               height="300"
-              image={bookDetails.image || defaultBookImage}
+              src={bookDetails.image ? `${BaseApiService.API_URL}/${bookDetails.image}` : defaultBookImage}
               alt={bookDetails.title}
             />
           </Card>

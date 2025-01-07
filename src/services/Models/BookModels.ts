@@ -30,6 +30,16 @@ export interface SearchBookModel {
     bookInBranches: BookInBranchModel[];
 }
 
+export interface BorrowedBookModel {
+    id: string
+    bookId: string
+    bookTitle: string
+    bookImage: string | null
+    startDate: string
+    endDate: string | null
+    deadlineReached: boolean
+}
+
 export interface BookInBranchModel {
     branch: LibraryBranch;
     quantity: number;

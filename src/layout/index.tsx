@@ -77,28 +77,12 @@ const DashboardLayout: React.FC<LayoutProps> = ({
     },
     {
       id: 2,
-      title: "کتاب ها",
-      link: "/customer/books",
-      icon: (
-        <BiBook size={23} color={theme.palette.common.white} />
-      ),
-    },
-    {
-      id: 3,
       title: "امانت ها",
       link: "/customer/borrowedBooks",
       icon: (
         <BiBook size={23} color={theme.palette.common.white} />
       ),
-    },
-    {
-      id: 3,
-      title: "پروفایل",
-      link: "/customer/profile",
-      icon: (
-        <BiUser size={23} color={theme.palette.common.white} />
-      ),
-    },
+    }
   ];
 
   return (
