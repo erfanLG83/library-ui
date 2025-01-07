@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import DashboardLayout from "../../../layout";
 import BooksService from "../../../services/books.service";
 import defaultBookImage from "../../../assets/images/logo.png";
-import { BookDetailsModel, LibraryBranch } from "../../../services/Models/BookModels";
+import { BookDetailsModel, BookLanguage, LibraryBranch } from "../../../services/Models/BookModels";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -88,6 +88,12 @@ const BookDetails = () => {
           <Typography variant="h5">{bookDetails.title}</Typography>
           <Typography variant="body1" style={{ marginTop: "10px" }}>
             توضیحات: {bookDetails.description || "اطلاعاتی موجود نیست."}
+          </Typography>
+          <Typography variant="body1" style={{ marginTop: "10px" }}>
+            زبان: {bookDetails.language === BookLanguage.Persian ? 'فارسی' : 'انگلیسی'}
+          </Typography>
+          <Typography variant="body1" style={{ marginTop: "10px" }}>
+            مترجمین: {bookDetails.interpreters}
           </Typography>
           <Typography variant="body1" style={{ marginTop: "10px" }}>
             نویسنده: {bookDetails.author.firstName} {bookDetails.author.lastName}
