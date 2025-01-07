@@ -9,6 +9,7 @@ import {
   Checkbox,
   Select,
   MenuItem,
+  Alert,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../../../layout";
@@ -153,6 +154,10 @@ const BookDetails = () => {
               alt={bookDetails.title}
             />
           </Card>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Alert> شما میتوانید با حضور به شعبه انتخاب شده کتاب خود را تحویل بگیرید </Alert>
         </Grid>
       </Grid>
     </DashboardLayout>

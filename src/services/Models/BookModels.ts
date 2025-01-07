@@ -36,6 +36,7 @@ export interface BorrowedBookModel {
     bookTitle: string
     bookImage: string | null
     startDate: string
+    branch: LibraryBranch
     endDate: string | null
     deadlineReached: boolean
 }
